@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "lib": [
+            "deno.window"
+        ]
+    },
+    "imports": {
+        "hono": "npm:hono@^3.10.0",
+        "hono/": "npm:hono@^3.10.0/",
+        "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.49.8"
+    }
+}

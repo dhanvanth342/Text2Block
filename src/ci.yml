@@ -1,0 +1,63 @@
+name: Backend Integration Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # 1. Setup Backend
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Backend Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r backend/requirements.txt
+      # Assuming requirements.txt is in backend/ folder
+
+    - name: Start Backend Service
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}  # Ensure this secret exists in GitHub
+      run: |
+        cd backend
+        nohup uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+        echo "Backend started in background..."
+        sleep 5  # Give it time to boot
+
+    # 2. Setup Frontend/Test Runner
+    - name: Set up Node.js 18
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install Node Dependencies
+      run: npm ci
+
+    # 3. Run Integration Test
+    - name: Run Backend Integration Test
+      env:
+        # Override Mock Mode to use real backend
+        VITE_USE_MOCK_MODE: 'false'
+        # Pass any other required env vars
+      run: |
+        npx tsx src/test/backend_integration_test.ts
+
+    # 4. Cleanup (Optional, runner cleans up automatically)
+    - name: Stop Backend (Optional)
+      if: always()
+      run: |
+        pkill uvicorn || true

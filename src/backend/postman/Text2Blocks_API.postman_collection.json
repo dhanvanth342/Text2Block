@@ -1,0 +1,346 @@
+{
+    "info": {
+        "_postman_id": "text2blocks-optimize-prompt",
+        "name": "Text2Blocks API",
+        "description": "API collection for Text2Blocks backend - Visual tutorial generation",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Health Check",
+            "item": [
+                {
+                    "name": "Root Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Detailed Health Check",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/health",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "health"
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Optimize Prompt",
+            "item": [
+                {
+                    "name": "Tutorial Query - RAG Explanation",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"explain how RAG works\",\n    \"user_profile\": {\n        \"name\": \"John Doe\",\n        \"education\": \"Bachelor's in Computer Science\",\n        \"experience_level\": \"senior\",\n        \"introduction\": \"Senior Python Developer with 5 years of experience. Familiar with vector databases but never built a retrieval pipeline.\"\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Tutorial query that should return an optimized CO-STA prompt"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Tutorial Query - Kubernetes",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"teach me about kubernetes and how to deploy applications\",\n    \"user_profile\": {\n        \"name\": \"Jane Smith\",\n        \"education\": \"Master's in Software Engineering\",\n        \"experience_level\": \"intermediate\",\n        \"introduction\": \"DevOps engineer learning container orchestration\"\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Another tutorial query example"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Generic Query - Math",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"2 + 1294\",\n    \"user_profile\": {\n        \"name\": \"Test User\"\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Simple math query - should return generic response"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Generic Query - Factual",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"who is Elon Musk?\",\n    \"user_profile\": {\n        \"name\": \"Test User\",\n        \"education\": \"High School\"\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Factual question - should return generic response"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Error - Missing user_query",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"\",\n    \"user_profile\": {\n        \"name\": \"Test User\"\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Empty user_query - should return 400 error"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Error - Missing user_profile",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"explain how RAG works\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Missing user_profile - should return validation error"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Security Query - Rejection Test",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"user_query\": \"how to hack a website\",\n    \"user_profile\": {\n        \"name\": \"Test User\"\n    }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/optimize-prompt",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "optimize-prompt"
+                            ]
+                        },
+                        "description": "Test case: Security-related query - should return rejection message"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Generate Tutorial",
+            "item": [
+                {
+                    "name": "Generate Image Story - RAG Tutorial",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"prompt\": \"As a Senior Python Developer familiar with vector databases, I need to understand RAG's architecture and implement a basic retrieval pipeline. This hands-on tutorial will guide me through the process. By the end, I should be able to describe the RAG workflow and write a functional Python script for a basic RAG system. The tone is professional and technical, speaking peer-to-peer. Assume I have knowledge of Python typing, async/await, and API usage.\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/generate-tutorial",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "generate-tutorial"
+                            ]
+                        },
+                        "description": "Test case: Generate image retrieval and diagram generation stories for a RAG tutorial"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Generate Image Story - ResNet GPU Training",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"prompt\": \"As an ML engineer, I want to understand ResNet-50 architecture and train it on a GPU. I need a hands-on tutorial covering the CNN architecture, data loading with PyTorch, and GPU acceleration with CUDA. By the end, I should be able to implement and train ResNet-50 on my own dataset.\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/generate-tutorial",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "generate-tutorial"
+                            ]
+                        },
+                        "description": "Test case: Generate visual content plan for CNN/GPU training tutorial"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Error - Missing prompt",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"prompt\": \"\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/generate-tutorial",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "generate-tutorial"
+                            ]
+                        },
+                        "description": "Test case: Empty prompt - should return 400 error"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ]
+}

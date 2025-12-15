@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  --font-ui: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-body: "Merriweather", Georgia, serif;
+  
+  --color-void: #0b0f19;
+  --color-glass: #1e293bb3;
+  --color-electric-blue: #3b82f6;
+  --color-emerald: #10b981;
+}
+
+@layer base {
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400 800;
+    font-display: swap;
+    src: url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+  }
+
+  @font-face {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap");
+  }
+
+  body {
+    font-family: var(--font-ui);
+    background-color: var(--color-void);
+    color: #fff;
+    transition: background-color .3s;
+  }
+
+  body.light-mode {
+    color: #0b0f19;
+    background-color: #fff;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-ui);
+  }
+
+  /* Specific fix for article content font */
+  .article-content, .article-content h1 {
+    font-family: var(--font-body);
+  }
+}
+
+@layer components {
+  .glass-surface {
+    background: var(--color-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  
+  .glow-blue { box-shadow: 0 0 20px #3b82f680; }
+  .glow-emerald { box-shadow: 0 0 15px #10b98166; }
+  .glow-purple { box-shadow: 0 0 20px #9333ea80; }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    font-weight: 600;
+    transition: all .3s;
+    box-shadow: 0 4px 12px #3b82f666;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px #3b82f699;
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .success-green { color: #10b981; }
+
+  /* Animations */
+  .animate-fade-in { animation: .3s ease-in fadeIn; }
+  .animate-slide-in-right { animation: .3s ease-out slideInRight; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(100px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+}
