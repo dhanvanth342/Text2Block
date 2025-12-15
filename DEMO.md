@@ -1,23 +1,11 @@
 # Demo Video
+## Link
+https://www.youtube.com/watch?v=cNMDIBu2dWE
+## Timestamps
+00:00–00:59 — Project Introduction & Motivation: The speaker introduces the "Text2Block" team and explains their goal to replace overwhelming LLM text walls with structured, Medium-style tutorials using the Gemini 2.5 Flash API.
 
-Please record a 3–5 minute walkthrough showing:
+01:00–01:50 — Platform Walkthrough: Demonstration of the user login process and the dashboard's response to generic queries versus specific "teach me" prompts.
 
-- The problem you solve  
-- End-to-end agent behavior on a representative example  
-- Highlighted “agentic” steps (planning, tool calls, memory use)
+01:51–02:15 — Tutorial Generation: showcasing the "Teach Me" feature, including the prompt optimization step and the generation of a rich article containing code snippets and architectural diagrams.
 
----
-
-📺 **Provide a Hosted Public Video Link (YouTube unlisted / Loom / MP4):**  MUST BE ON A HOS
-https://your.video.link.here
-
-PLEASE DO NOT UPLOAD RAW VIDOE FILES. These submissions will not be reviewed.
-
-### Timestamps
-
-- **00:00–00:30** — Introduction & setup  
-- **00:30–01:30** — User input → Planning step  
-- **01:30–02:30** — Tool calls & memory retrieval  
-- **02:30–03:30** — Final output & edge-case handling
-
-- Vidoes longer than 5 minutes may not be reviewd. 
+02:16–02:35 — Comparative Analysis: The speaker compares the structured output of Text2Block against the standard, text-heavy response of the native Gemini interface.
